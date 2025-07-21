@@ -1,0 +1,25 @@
+# 仮想環境
+.venv/
+env/
+ENV/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+input/
+output/
+result/
+done/
+
+*.swp
+*.swo
+*.bak
+*.tmp
+
+config.ps1
+
+.DS_Store
+Thumbs.db
+desktop.ini
