@@ -2,6 +2,7 @@ import os
 import glob
 import numpy as np
 import pandas as pd
+from datetime import datetime, time
 
 def check_result_directory(file_directory: str) :
     # 結果出力ディレクトリの存在チェック
@@ -51,3 +52,29 @@ def check_confidence(df: pd.DataFrame) :
                     
     print(f"max frames length that confidence is enough: {confidence_length_max}/{len(confidence_list)}")
     return {"confidence_length_max": confidence_length_max, "confidence_offset": confidence_offset}
+
+def my_fatigue(file_name: str) -> pd.DataFrame:
+    fatigue_file = glob.glob(f"./output/*評価テスト回答.csv")
+    fatigue_df = pd.read_csv(fatigue_file[0])
+    print(fatigue_file[0])
+    fatigue_df["タイムスタンプ"] = pd.to_datetime(fatigue_df["タイムスタンプ"])
+    
+    # 指定日付の構文解析
+    date_str = file_name[-14:]
+    date = datetime.strptime(f"{date_str}", "%Y%m%d%H%M%S")
+    today = date.date()
+    is_am = date.time() <= time(12, 0, 0)
+    fatigue_df["date"] = today
+    
+    # 日付検索
+    fatigue_df = fatigue_df[fatigue_df["タイムスタンプ"].dt.strftime("%Y-%m-%d") == str(today)]
+    # 午前・午後の判定
+    if is_am :
+        fatigue_df = fatigue_df[fatigue_df["タイムスタンプ"].dt.time <= time(12, 0, 0)]
+        fatigue_df["AMPM"] = "AM"
+    else :
+        fatigue_df = fatigue_df[fatigue_df["タイムスタンプ"].dt.time >= time(12, 0, 0)]
+        fatigue_df["AMPM"] = "PM"
+    
+    if not fatigue_df.empty :
+        return fatigue_df

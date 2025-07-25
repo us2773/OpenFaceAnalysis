@@ -40,6 +40,7 @@ def editAUdata(file_name: str, file_directory) :
 def my_fatigue(file_name: str) :
     fatigue_file = glob.glob(f"./output/*評価テスト回答.csv")
     fatigue_df = pd.read_csv(fatigue_file[0])
+    print(fatigue_file[0])
     fatigue_df["タイムスタンプ"] = pd.to_datetime(fatigue_df["タイムスタンプ"])
     
     # 指定日付の構文解析
@@ -58,6 +59,7 @@ def my_fatigue(file_name: str) :
         fatigue_df = fatigue_df[fatigue_df["タイムスタンプ"].dt.time >= time(12, 0, 0)]
         print(date,"pm")
     
+    print(fatigue_df.head())
     if not fatigue_df.empty :
         return fatigue_df, True
     else :
