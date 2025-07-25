@@ -7,7 +7,7 @@ class Analyzer :
         
     def _load_csv(self) -> pd.DataFrame:
         try:
-            df = pd.read_csv(self.csv_path)
+            df = pd.read_csv(self.path)
             return df
         except Exception as e:
             raise RuntimeError(f"fail to load csv: {e}")
