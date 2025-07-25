@@ -1,5 +1,6 @@
 import pandas as pd
 import load_datafiles
+import AU_analysis
 
 class Analyzer :
     def __init__(self, csv_path, output_path="samples") :
@@ -25,3 +26,9 @@ class Analyzer :
         confidence_dict = load_datafiles.check_confidence(self.au_df)
         self.confidence_length_max = confidence_dict["confidence_length_max"]
         self.confidence_offset = confidence_dict["confidence_offset"]
+        
+    def _AUs_plot(self, plot_num) :
+        AU_analysis.AUs_plot(self.au_df, plot_num)
+        
+    def _AU_trend_noise(self, plot_num) :
+        AU_analysis.AU_trend_noise(self.au_df, plot_num)
