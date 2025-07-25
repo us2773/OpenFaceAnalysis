@@ -76,9 +76,11 @@ def fatigue_group_score(fatigue_df: pd.DataFrame) :
     return group_scores
 
 def exec_analysis(file_directory) :
+    # 結果出力ディレクトリの存在チェック
     if not os.path.exists(f"./result/{file_directory}") :
         os.makedirs(f"./result/{file_directory}")
 
+    # ファイル名の全取得
     AU_files = glob.glob(f"./output/{file_directory}/VID*.csv")
 
     AU_files = [os.path.splitext(os.path.basename(x))[0] for x in AU_files] 

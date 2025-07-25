@@ -7,7 +7,7 @@ from statsmodels.nonparametric.smoothers_lowess import lowess
 
 file_directory = "250716"
 
-# 結果出力ディレクトリのチェック・新規作成
+# ファイル名の全取得
 files = glob.glob(f"./output/{file_directory}/VID*.csv")
 files = [os.path.splitext(os.path.basename(x))[0] for x in files]
 
