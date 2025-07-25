@@ -4,7 +4,7 @@ from statsmodels.nonparametric.smoothers_lowess import lowess
 
 
 # AUデータ抽出・プロット化
-def AUs_plot(df: pd.DataFrame, plot_num: int):
+def AUs_plot(df: pd.DataFrame, plot_num: int) -> plt.figure:
     fig = plt.figure(figsize=(12,8))
     AUR_start = df.columns.get_loc(" AU01_r")
     AUR_end = df.columns.get_loc(" AU45_r")
@@ -18,12 +18,13 @@ def AUs_plot(df: pd.DataFrame, plot_num: int):
             fig.subplots_adjust(hspace=0.5, wspace=0.5)
     
     elif 0 <= plot_num < 17 :
-        axes = fig.subplots(df.loc[:, " timestamp"], df.iloc[:, AUR_start+plot_num])
-        axes.plot()
+        axes = fig.subplots()
+        axes.plot(df.loc[:, " timestamp"], df.iloc[:, AUR_start+plot_num])
 
     # fig.savefig(f"./result/{file_directory}/{file_name}.png", bbox_inches="tight")
-    fig.show()
-    fig.clf()
+    # fig.show()
+    return fig
+    # fig.clf()
     
 # AUをノイズとトレンドに分離する関数
 def AU_trend_noise(df: pd.DataFrame, plot_num: int) :

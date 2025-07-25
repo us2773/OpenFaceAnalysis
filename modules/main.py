@@ -3,11 +3,11 @@ import load_datafiles
 import AU_analysis
 
 class Analyzer :
-    def __init__(self, csv_path, output_path="samples") :
+    def __init__(self, csv_path, result_path="samples") :
         self.path = csv_path
         self.au_df = self._load_au_csv()
         self.fatigue_df = self._load_fatigue_csv()
-        self.output_path = output_path
+        self.result_path = result_path
         
     def _load_au_csv(self) -> pd.DataFrame:
         try:
@@ -28,7 +28,7 @@ class Analyzer :
         self.confidence_offset = confidence_dict["confidence_offset"]
         
     def _AUs_plot(self, plot_num) :
-        AU_analysis.AUs_plot(self.au_df, plot_num)
+        return AU_analysis.AUs_plot(self.au_df, plot_num)
         
     def _AU_trend_noise(self, plot_num) :
         AU_analysis.AU_trend_noise(self.au_df, plot_num)

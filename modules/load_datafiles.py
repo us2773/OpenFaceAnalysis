@@ -57,14 +57,18 @@ def my_fatigue(file_name: str) -> pd.DataFrame:
     fatigue_file = glob.glob(f"./output/*評価テスト回答.csv")
     fatigue_df = pd.read_csv(fatigue_file[0])
     print(fatigue_file[0])
+    print(file_name)
     fatigue_df["タイムスタンプ"] = pd.to_datetime(fatigue_df["タイムスタンプ"])
     
     # 指定日付の構文解析
-    date_str = file_name[-14:]
+    # ファイル名に対する柔軟性が極めて低いため要修正
+    print(file_name[-18:-4])
+    date_str = file_name[-18:-4]
     date = datetime.strptime(f"{date_str}", "%Y%m%d%H%M%S")
     today = date.date()
     is_am = date.time() <= time(12, 0, 0)
     fatigue_df["date"] = today
+    print(fatigue_df.head())
     
     # 日付検索
     fatigue_df = fatigue_df[fatigue_df["タイムスタンプ"].dt.strftime("%Y-%m-%d") == str(today)]
