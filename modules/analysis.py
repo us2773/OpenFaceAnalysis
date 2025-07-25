@@ -1,7 +1,5 @@
 import pandas as pd
 import load_datafiles
-import os
-import glob
 
 class Analyzer :
     def __init__(self, csv_path, output_path="samples") :
@@ -18,7 +16,7 @@ class Analyzer :
             raise RuntimeError(f"fail to load csv: {e}")
         
     def _load_fatigue_csv(self) -> pd.DataFrame :
-        pass
+        load_datafiles.my_fatigue(self.path)
         
     def _cleansing_data(self) :
         load_datafiles.check_result_directory(self.au_df)
